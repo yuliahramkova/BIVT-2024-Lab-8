@@ -40,7 +40,7 @@ public class Blue_4 : Blue
             }
         }
     }
-    public override string ToString()
+    public string ToString()
     {
         return $"{_output}";
     }

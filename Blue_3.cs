@@ -6,9 +6,18 @@ namespace Lab_8;
 public class Blue_3 : Blue
 {
     private (char, double)[] _output;
-    private int _countOfWords;
 
-    public (char, double)[] Output => _output; 
+    public (char, double)[] Output
+    {
+        get
+        {
+            if (_output == null)
+                return null;
+            (char, double)[] newOutput = new (char, double)[_output.Length];
+            Array.Copy(_output, newOutput, _output.Length);
+            return newOutput;
+        }
+    }
     private int CountOfWords
     {
         get
@@ -21,7 +30,7 @@ public class Blue_3 : Blue
 
     public Blue_3(string input) : base(input) 
     {
-        _output = new (char,double)[0];
+        _output = Array.Empty<(char, double)>();
     }
 
     private void Add(char ch)
@@ -60,19 +69,16 @@ public class Blue_3 : Blue
             _output[i].Item2 /= CountOfWords;
             _output[i].Item2 *= 100;
         }
+
+        (char,double)[] newOutput = _output.OrderByDescending( pair => pair.Item2).ThenBy(pair => pair.Item1).ToArray();
+        _output = newOutput;
     }
 
-    public override string ToString()
+    public string ToString()
     {
         if (_output == null)
             return null;
         
-        (char,double)[] newOutput = _output.OrderByDescending( pair => pair.Item2).ThenBy(pair => pair.Item1).ToArray();
-        _output = newOutput;
-        string ans = "";
-        for (int i = 0; i<_output.Length; i++)
-            ans += $"{_output[i].Item1} - {Math.Round(_output[i].Item2, 4)}\n";
-        
-        return ans;
+        return string.Join("\n", _output.Select(p => $"{p.Item1} - {p.Item2:F4}"));
     }
 }

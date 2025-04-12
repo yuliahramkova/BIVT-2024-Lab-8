@@ -11,10 +11,8 @@ public abstract class Blue
 
     public Blue(string input)
     {
-        if (!string.IsNullOrEmpty(input))
-            _input = input;
+        _input = input;
     }
 
     public abstract void Review();
-    public abstract string ToString();
 }

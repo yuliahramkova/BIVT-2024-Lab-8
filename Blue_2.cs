@@ -20,6 +20,22 @@ public class Blue_2 : Blue
         if (strs == null || strs.Length == 0 || ind < 0 || ind >= strs.Length)
             return;
 
+        if (strs[ind].Contains("\"") && !strs[ind].Contains('.') && !strs[ind].Contains(','))
+        {
+            strs[ind] = "\"\"";
+            return;
+        }
+        else if (strs[ind].Contains("\"") &&strs[ind].Contains('.'))
+        {
+            strs[ind] = "\"\".";
+            return;
+        }
+        else if (strs[ind].Contains("\"") &&strs[ind].Contains(','))
+        {
+            strs[ind] = "\"\",";
+            return;
+        }
+
         string[] newStrs = new string[strs.Length-1];
         Array.Copy(strs, newStrs, ind);
         if (strs[ind].Contains('.') && ind != 0)
@@ -34,18 +50,18 @@ public class Blue_2 : Blue
         if (string.IsNullOrEmpty(_input) || string.IsNullOrEmpty(_delete))
             return;
         _output = _input;
-        if (!_input.ToLower().Contains(_delete.ToLower()))
+        if (!_input.Contains(_delete))
             return;
 
         string[] strings = _input.Split(" ");
         for (int i = 0; i<strings.Length; i++)
         {
-            if (strings[i].ToLower().Contains(_delete.ToLower()))
+            if (strings[i].Contains(_delete))
                 ToDelete(ref strings, i);
         }
         _output = string.Join(" ", strings);
     }
-    public override string ToString()
+    public string ToString()
     {
         if (string.IsNullOrEmpty(_output))
             return null;

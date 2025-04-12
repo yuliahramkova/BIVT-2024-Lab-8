@@ -16,7 +16,7 @@ public class Blue_1 : Blue
 
     private static void Add(ref string[] strings, string str)
     {
-        if (strings == null)
+        if (strings == null || string.IsNullOrEmpty(str))
             return;
         
         string[] newStrings = new string[strings.Length+1];
@@ -29,16 +29,8 @@ public class Blue_1 : Blue
         if (string.IsNullOrEmpty(_input))
             return;
         _output = _input.Split(" ");
-        // for (int i = 0; i<_output.Length; i++)
-        // {
-            // while (_output[i].Length > 50)
-            // {
-                // Add(ref _output, _output[i].Substring(50), i+1);
-                // _output[i] = _output[i].Substring(0,50);
-            // }
-        // }
     }
-    public override string ToString()
+    public string ToString()
     {
         if (_output == null || string.IsNullOrEmpty(_input))
             return null;
@@ -51,15 +43,19 @@ public class Blue_1 : Blue
             counter = _output[i].Length;
             while (counter <= 50)
             {
-                p += _output[i++] + " ";
+                p += _output[i++];
                 if (i != _output.Length)
+                {
                     counter += _output[i].Length+1;
+                    p+= " ";
+                }
                 else 
                     break;
             }
             Add(ref res,p);
         }
         string ans = string.Join("\n", res);
+        
         return ans;
     }
 }
