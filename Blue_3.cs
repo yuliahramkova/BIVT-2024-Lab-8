@@ -13,6 +13,7 @@ public class Blue_3 : Blue
         {
             if (_output == null)
                 return null;
+
             (char, double)[] newOutput = new (char, double)[_output.Length];
             Array.Copy(_output, newOutput, _output.Length);
             return newOutput;
@@ -22,9 +23,9 @@ public class Blue_3 : Blue
     {
         get
         {
-            if (string.IsNullOrEmpty(_input) || _input.Length == 0)
+            if (string.IsNullOrEmpty(Input) || Input.Length == 0)
                 return 0;
-            return _input.Split(" ").Count(str => Char.IsLetter(str[0]));
+            return Input.Split(" ").Count(str => str.Any(sym => Char.IsLetter(sym)));
         }
     }
 
@@ -44,9 +45,12 @@ public class Blue_3 : Blue
     }
     public override void Review()
     {
-        if (string.IsNullOrEmpty(_input) || _input.Length == 0 || _output == null)
-                return;
-        string[] strs = _input.Split(" ");
+        if (string.IsNullOrEmpty(Input) || Input.Length == 0)
+        {
+            _output = null;
+            return;
+        }
+        string[] strs = Input.Split(" ");
         foreach (string str in strs)
         {
             if (!Char.IsLetter(str[0]))
@@ -74,11 +78,12 @@ public class Blue_3 : Blue
         _output = newOutput;
     }
 
-    public string ToString()
+    public override string ToString()
     {
-        if (_output == null)
+        if (_output == null || _output.Length == 0)
             return null;
         
-        return string.Join("\n", _output.Select(p => $"{p.Item1} - {p.Item2:F4}"));
+        string str = string.Join("\n", _output.Select(p => $"{p.Item1} - {p.Item2:F4} "));
+        return str.Remove(str.Length-1);
     }
 }

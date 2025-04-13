@@ -12,7 +12,7 @@ public class Blue_2 : Blue
     public Blue_2(string input, string delete) : base(input)
     {
         _delete = delete;
-        _output = "";
+        _output = null;
     }
 
     private static void ToDelete(ref string[] strs, int ind)
@@ -47,13 +47,17 @@ public class Blue_2 : Blue
     }
     public override void Review()
     {
-        if (string.IsNullOrEmpty(_input) || string.IsNullOrEmpty(_delete))
+        if (string.IsNullOrEmpty(Input) || string.IsNullOrEmpty(_delete))
+        {
+            _output = null;
             return;
-        _output = _input;
-        if (!_input.Contains(_delete))
+        }
+
+        _output = Input;
+        if (!Input.Contains(_delete))
             return;
 
-        string[] strings = _input.Split(" ");
+        string[] strings = Input.Split(" ");
         for (int i = 0; i<strings.Length; i++)
         {
             if (strings[i].Contains(_delete))
@@ -61,7 +65,7 @@ public class Blue_2 : Blue
         }
         _output = string.Join(" ", strings);
     }
-    public string ToString()
+    public override string ToString()
     {
         if (string.IsNullOrEmpty(_output))
             return null;

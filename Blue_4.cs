@@ -17,11 +17,11 @@ public class Blue_4 : Blue
 
     public override void Review()
     {
-        if (string.IsNullOrEmpty(_input))
+        if (string.IsNullOrEmpty(Input))
             return;
         
         bool wasDigit = false; int num = 0;
-        foreach (char symb in _input)
+        foreach (char symb in Input)
         {
             if (Char.IsDigit(symb) && !wasDigit)
             {
@@ -40,7 +40,7 @@ public class Blue_4 : Blue
             }
         }
     }
-    public string ToString()
+    public override string ToString()
     {
         return $"{_output}";
     }

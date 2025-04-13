@@ -26,15 +26,13 @@ public class Blue_1 : Blue
     }
     public override void Review()
     {
-        if (string.IsNullOrEmpty(_input))
+        if (string.IsNullOrEmpty(Input))
+        {
+            _output = null;
             return;
-        _output = _input.Split(" ");
-    }
-    public string ToString()
-    {
-        if (_output == null || string.IsNullOrEmpty(_input))
-            return null;
-        
+        }
+
+        _output = Input.Split(" ");
         string[] res = new string[0];
         int counter = 0;
         for (int i = 0; i<_output.Length; )
@@ -52,10 +50,16 @@ public class Blue_1 : Blue
                 else 
                     break;
             }
-            Add(ref res,p);
+            
+            Add(ref res,p.Substring(0, p.Length-1));
         }
-        string ans = string.Join("\n", res);
-        
+        _output = res;
+    }
+    public override string ToString()
+    {
+        if (_output == null || string.IsNullOrEmpty(Input))
+            return null;
+        string ans = string.Join("\n", _output);
         return ans;
     }
 }

@@ -5,7 +5,7 @@ namespace Lab_8;
 
 public abstract class Blue
 {
-    protected string _input;
+    private string _input;
 
     public string Input => _input;
 
