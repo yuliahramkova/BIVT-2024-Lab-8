@@ -13,7 +13,6 @@ public class Blue_3 : Blue
         {
             if (_output == null)
                 return null;
-
             (char, double)[] newOutput = new (char, double)[_output.Length];
             Array.Copy(_output, newOutput, _output.Length);
             return newOutput;
@@ -42,6 +41,7 @@ public class Blue_3 : Blue
         Array.Copy(_output, newOutput, _output.Length);
         newOutput[_output.Length] = (ch, 1);
         _output = newOutput;
+        // Console.Write($"{ch} ");
     }
     public override void Review()
     {
@@ -50,15 +50,17 @@ public class Blue_3 : Blue
             _output = null;
             return;
         }
+
         string[] strs = Input.Split(" ");
         foreach (string str in strs)
         {
-            if (!Char.IsLetter(str[0]))
+            if (!Char.IsLetter(str[0]) && str[0] != '(' && str[0] != '\"')
                 continue;
+
             bool isFound = false;
             for (int i = 0; i<_output.Length; i++)
             {
-                if (Char.ToLower(str[0]) == _output[i].Item1)
+                if (Char.ToLower(str.First(p => Char.IsLetter(p))) == _output[i].Item1)
                 {
                     _output[i].Item2++;
                     isFound = true;
@@ -66,7 +68,7 @@ public class Blue_3 : Blue
                 }
             }
             if (!isFound)
-                Add(Char.ToLower(str[0]));
+                Add(Char.ToLower(str.First(p => Char.IsLetter(p))));
         }
         for (int i = 0; i<_output.Length; i++)
         {
@@ -81,9 +83,8 @@ public class Blue_3 : Blue
     public override string ToString()
     {
         if (_output == null || _output.Length == 0)
-            return null;
+            return string.Empty;
         
-        string str = string.Join("\n", _output.Select(p => $"{p.Item1} - {p.Item2:F4} "));
-        return str.Remove(str.Length-1);
+        return string.Join(Environment.NewLine, _output.Select(p => $"{p.Item1} - {p.Item2:F4}"));
     }
 }

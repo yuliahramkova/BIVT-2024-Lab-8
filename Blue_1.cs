@@ -11,7 +11,7 @@ public class Blue_1 : Blue
 
     public Blue_1(string input) : base(input) 
     {
-        _output = new string[0];
+        _output = null;
     }
 
     private static void Add(ref string[] strings, string str)
@@ -41,11 +41,10 @@ public class Blue_1 : Blue
             counter = _output[i].Length;
             while (counter <= 50)
             {
-                p += _output[i++];
+                p += _output[i++]+" ";
                 if (i != _output.Length)
                 {
                     counter += _output[i].Length+1;
-                    p+= " ";
                 }
                 else 
                     break;
@@ -57,9 +56,8 @@ public class Blue_1 : Blue
     }
     public override string ToString()
     {
-        if (_output == null || string.IsNullOrEmpty(Input))
-            return null;
-        string ans = string.Join("\n", _output);
-        return ans;
+        if (_output == null || _output.Length == 0)
+            return string.Empty;
+        return string.Join(Environment.NewLine, _output);
     }
 }
