@@ -21,7 +21,7 @@ public class Blue_3 : Blue
 
     public Blue_3(string input) : base(input) 
     {
-        _output = new (char letter, double percent)[0];
+        _output = null;
     }
 
     private void Add(char ch)
@@ -40,6 +40,7 @@ public class Blue_3 : Blue
             return;
 
         string[] strs = Input.Split(" ");
+        _output = new (char, double)[0];
         foreach (string str in strs)
         {
             if (!Char.IsLetter(str[0]) && str[0] != '(' && str[0] != '\"')
@@ -72,7 +73,6 @@ public class Blue_3 : Blue
     {
         if (_output == null)
             return null;
-            
         return string.Join(Environment.NewLine, _output.Select(p => $"{p.Item1} - {p.Item2:F4}"));
     }
 }
