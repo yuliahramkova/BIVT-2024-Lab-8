@@ -7,30 +7,21 @@ public class Blue_3 : Blue
 {
     private (char, double)[] _output;
 
-    public (char, double)[] Output
-    {
-        get
-        {
-            if (_output == null)
-                return null;
-            (char, double)[] newOutput = new (char, double)[_output.Length];
-            Array.Copy(_output, newOutput, _output.Length);
-            return newOutput;
-        }
-    }
+    public (char letter, double percent)[] Output => _output;
+
     private int CountOfWords
     {
         get
         {
             if (string.IsNullOrEmpty(Input) || Input.Length == 0)
                 return 0;
-            return Input.Split(" ").Count(str => str.Any(sym => Char.IsLetter(sym)));
+            return Input.Split(" ").Count(str => str.Any(sym => Char.IsLetter(sym)) && !str.Any(sym => Char.IsDigit(sym)));
         }
     }
 
     public Blue_3(string input) : base(input) 
     {
-        _output = Array.Empty<(char, double)>();
+        _output = new (char letter, double percent)[0];
     }
 
     private void Add(char ch)
@@ -45,11 +36,8 @@ public class Blue_3 : Blue
     }
     public override void Review()
     {
-        if (string.IsNullOrEmpty(Input) || Input.Length == 0)
-        {
-            _output = null;
+        if (string.IsNullOrEmpty(Input))
             return;
-        }
 
         string[] strs = Input.Split(" ");
         foreach (string str in strs)
@@ -82,9 +70,9 @@ public class Blue_3 : Blue
 
     public override string ToString()
     {
-        if (_output == null || _output.Length == 0)
-            return string.Empty;
-        
+        if (_output == null)
+            return null;
+            
         return string.Join(Environment.NewLine, _output.Select(p => $"{p.Item1} - {p.Item2:F4}"));
     }
 }
